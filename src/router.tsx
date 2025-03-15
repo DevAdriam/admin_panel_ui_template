@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import App from "./layouts/app";
+import Loader from "@/components/custom/Loader";
 
 const Login = lazy(() => import("@/pages/auth/login"));
 const RequiredAuth = lazy(() => import("@/pages/auth/required-auth"));
@@ -8,7 +9,7 @@ const Dashboard = lazy(() => import("@/pages/dashboard/dashboard"));
 
 export default function Router() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         {/* Public Routes */}
         <Route

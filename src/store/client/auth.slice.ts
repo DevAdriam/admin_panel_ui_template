@@ -14,13 +14,15 @@ export interface AuthSlice {
 const initialAuth = { accessToken: "", refreshToken: "" };
 
 const createAuthSlice: StateCreator<AuthSlice> = (set) => {
-  const cookieState = Cookies.get("accessToken");
-  const initialAuthState = cookieState ? JSON.parse(cookieState) : initialAuth;
+  const getToken = Cookies.get("accessToken");
+  const initialAuthState: Auth = getToken
+    ? { accessToken: getToken }
+    : initialAuth;
   return {
     auth: initialAuthState,
     setAuth: (auth) =>
       set((state) => {
-        Cookies.set("accessToken", JSON.stringify(auth), {
+        Cookies.set("accessToken", auth.accessToken, {
           expires: 7,
           path: "/",
         });

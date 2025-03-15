@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/client/useStore";
 import { GET_ADMIN_PROFILE } from "../endpoint";
+import { axiosInstance } from "@/api/axios";
 
 const useAuthCheck = () => {
   const { auth } = useAuthStore();
@@ -9,6 +10,7 @@ const useAuthCheck = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(auth);
       if (!auth?.accessToken) {
         setAuthenticated(false);
         setIsPending(false);
@@ -27,13 +29,13 @@ const useAuthCheck = () => {
     };
 
     fetchData();
-  }, [auth.accessToken]); // ✅ Runs only when `auth.accessToken` actually changes
+  }, [auth, auth.accessToken]);
 
   return { isPending, authenticated };
 };
 
 const getProfile = async (token: string) => {
-  if (!token) return false; // ✅ Prevents unnecessary API calls
+  if (!token) return false;
 
   const headers = {
     "Content-Type": "application/json",
@@ -41,12 +43,8 @@ const getProfile = async (token: string) => {
     Authorization: `Bearer ${token}`,
   };
   try {
-    const response = await fetch(
-      `${import.meta.env.BASE_URL}${GET_ADMIN_PROFILE}`,
-      { headers }
-    );
-
-    return response.ok;
+    const response = await axiosInstance.get(GET_ADMIN_PROFILE, { headers });
+    return !!response.data._data.data;
   } catch (error) {
     console.error(error);
     return false;

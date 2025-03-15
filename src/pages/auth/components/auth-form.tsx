@@ -60,9 +60,11 @@ export default function AuthForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Enter your email" {...field} />
               </FormControl>
-              <FormDescription>Please Enter your email</FormDescription>
+              <FormDescription className="text-gray-400">
+                This email will used for your admin account
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -76,7 +78,7 @@ export default function AuthForm() {
               <FormControl>
                 <div className="relative">
                   <Input
-                    placeholder="shadcn"
+                    placeholder="Enter your password"
                     {...field}
                     type={isView ? "text" : "password"}
                   />
@@ -95,7 +97,9 @@ export default function AuthForm() {
                   )}
                 </div>
               </FormControl>
-              <FormDescription>Please Enter your password</FormDescription>
+              <FormDescription className="text-gray-400">
+                Password must be at least 6 characters
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

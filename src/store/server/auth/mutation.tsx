@@ -1,8 +1,8 @@
+import { axiosInstance } from "@/api/axios";
 import { ADMIN_LOGIN } from "@/endpoint";
 import { useAuthStore } from "@/store/client/useStore";
 import { IResponse } from "@/types";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -14,7 +14,7 @@ export interface IAuthInput {
 const loginUserFn = async (
   input: IAuthInput
 ): Promise<IResponse<{ accessToken: string }>> => {
-  const response = await axios.post(ADMIN_LOGIN, input, {
+  const response = await axiosInstance.post(ADMIN_LOGIN, input, {
     headers: {
       "Content-Type": "Application/json",
       Accept: "application/json",
@@ -38,13 +38,15 @@ export const useLogin = () => {
       return loginUserFn(input);
     },
     onSuccess: (data: IResponse<{ accessToken: string }>) => {
-      if (data._metadata.status === 200) {
-        setAuth({ accessToken: data._data.accessToken });
-        toast.success("Login Successful");
+      console.log(data._metaData.statusCode);
+      if (data._metaData.statusCode === 200) {
+        const accessToken = data._data.data.accessToken;
+        setAuth({ accessToken });
         navigate(toHomePage, { replace: true, viewTransition: true });
       }
     },
     onError: () => {
+      console.log("Enter success");
       toast.error("Invalid Credentials");
     },
   });

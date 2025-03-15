@@ -1,2 +1,2 @@
-export const GET_ADMIN_PROFILE = "auth/admin/profile";
-export const ADMIN_LOGIN = "auth/admin/login";
+export const GET_ADMIN_PROFILE = "auth/me";
+export const ADMIN_LOGIN = "auth/login";

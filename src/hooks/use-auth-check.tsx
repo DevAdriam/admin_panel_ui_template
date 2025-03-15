@@ -10,7 +10,6 @@ const useAuthCheck = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(auth);
       if (!auth?.accessToken) {
         setAuthenticated(false);
         setIsPending(false);

@@ -38,7 +38,6 @@ export const useLogin = () => {
       return loginUserFn(input);
     },
     onSuccess: (data: IResponse<{ accessToken: string }>) => {
-      console.log(data._metaData.statusCode);
       if (data._metaData.statusCode === 200) {
         const accessToken = data._data.data.accessToken;
         setAuth({ accessToken });
@@ -46,7 +45,6 @@ export const useLogin = () => {
       }
     },
     onError: () => {
-      console.log("Enter success");
       toast.error("Invalid Credentials");
     },
   });

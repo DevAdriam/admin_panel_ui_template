@@ -1,3 +1,4 @@
+import Loader from "@/components/custom/Loader";
 import useAuthCheck from "@/hooks/use-auth-check";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
@@ -6,7 +7,7 @@ const RequiredAuth = () => {
   const { authenticated, isPending } = useAuthCheck();
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (!authenticated) {

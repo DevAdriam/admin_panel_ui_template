@@ -23,8 +23,6 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: (failureCount, error) => {
-        console.log(error);
-        console.log(failureCount);
         return !(
           error instanceof AxiosError &&
           [401, 403].includes(error.response?.status ?? 0)

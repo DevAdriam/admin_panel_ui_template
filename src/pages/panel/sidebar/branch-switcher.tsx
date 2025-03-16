@@ -1,7 +1,6 @@
-"use client";
-
 import * as React from "react";
 import { ChevronsUpDown, Plus } from "lucide-react";
+import logo from "../../../assets/logo.png";
 
 import {
   DropdownMenu,
@@ -19,19 +18,19 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-export function TeamSwitcher({
-  teams,
+export function BranchSwitcher({
+  branches,
 }: {
-  teams: {
+  branches: {
     name: string;
     logo: React.ElementType;
     plan: string;
   }[];
 }) {
   const { isMobile } = useSidebar();
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const [activebranche, setActivebranch] = React.useState(branches[0]);
 
-  if (!activeTeam) {
+  if (!activebranche) {
     return null;
   }
 
@@ -44,14 +43,14 @@ export function TeamSwitcher({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <activeTeam.logo className="size-4" />
+              <div className="flex aspect-square bg-custom-primary size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                <img src={logo} alt="logo" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {activeTeam.name}
+                  {activebranche.name}
                 </span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate text-xs">{activebranche.plan}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -63,18 +62,18 @@ export function TeamSwitcher({
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Teams
+              branches
             </DropdownMenuLabel>
-            {teams.map((team, index) => (
+            {branches.map((branche, index) => (
               <DropdownMenuItem
-                key={team.name}
-                onClick={() => setActiveTeam(team)}
+                key={branche.name}
+                onClick={() => setActivebranch(branche)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-sm border">
-                  <team.logo className="size-4 shrink-0" />
+                  <branche.logo className="size-4 shrink-0" />
                 </div>
-                {team.name}
+                {branche.name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
@@ -83,7 +82,9 @@ export function TeamSwitcher({
               <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                 <Plus className="size-4" />
               </div>
-              <div className="font-medium text-muted-foreground">Add team</div>
+              <div className="font-medium text-muted-foreground">
+                Add branche
+              </div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
